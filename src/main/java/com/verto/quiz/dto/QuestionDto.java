@@ -30,4 +30,8 @@ public class QuestionDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int correctOptionId;
 
+    private boolean questionTextExist;
+
+    public void setQuestionTestExist(boolean b) {
+    }
 }

@@ -303,6 +303,18 @@ public class QuizServiceImpl implements QuizService {
         List<QuestionDto> questionsDtoForResponse = new ArrayList<>();
 
         for(QuestionDto questionDto: multipleQuestionDto){
+
+            boolean questionExist=false;
+            questionExist= quiz.getQuestions().stream()
+                    .anyMatch(que -> que.getQuestionText().equals(questionDto.getQuestionText()));
+
+            if(questionExist){
+                questionDto.setQuestionTextExist(true);
+                questionsDtoForResponse.add(questionDto);
+            }else{
+
+
+
             //Set the Unique questionId
             String questionId = UUID.randomUUID().toString();
             questionDto.setQuestionId(questionId);
@@ -353,6 +365,8 @@ public class QuizServiceImpl implements QuizService {
 
             //Add the savedQuestion into the questionDtoForResponse as Dto
             questionsDtoForResponse.add(mapper.map(savedQuestion, QuestionDto.class));
+
+            }
         }
 
         return questionsDtoForResponse;
