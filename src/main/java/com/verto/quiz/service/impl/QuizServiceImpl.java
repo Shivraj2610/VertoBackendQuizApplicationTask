@@ -239,12 +239,8 @@ public class QuizServiceImpl implements QuizService {
 
         //Check the Question is Already Exist if yes then Give message
         boolean questionContain=false;
-        for(Question que: quiz.getQuestions()){
-            if(que.getQuestionText().equals(questionDto.getQuestionText())){
-                questionContain=true;
-                break;
-            }
-        }
+        questionContain= quiz.getQuestions().stream()
+                .anyMatch(que -> que.getQuestionText().equals(questionDto.getQuestionText()));
         if(questionContain){
             throw new IncorrectRequestExceptionHandler("The Question already exist");
         }
